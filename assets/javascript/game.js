@@ -1,7 +1,7 @@
 //global variables go here
 
 
-var word = ["cat","horse"];
+var word = ["cat","horse","rocket-ship"];
 var showSpace = [];
 var letterPush = [];
 // var replace = showLetter[0].replace(showLetter[0],letter[0]);
@@ -9,13 +9,14 @@ var letterPush = [];
 // var replace2 = showLetter[2].replace(showLetter[2],letter[2]);
 var userGuess = 8;
 var guessList = [];
+var win = 0;
 
 var wordRandom = word[Math.floor(Math.random() * word.length)];
 
 
 document.body.onkeyup = function (e) {
 
-	var show = " _ ";
+	var showUnderscore = " _ ";
 
 	if (e.keyCode == 32) {
 
@@ -25,37 +26,58 @@ document.body.onkeyup = function (e) {
 
 			for (var i = 0; i < wordLength; i++) {
 
-				showSpace.push(show);
+				showSpace.push(showUnderscore);
 
 				document.getElementById("guess").textContent = showSpace;
 			}
 
-		document.onkeyup = function(event) {
 
-			var userPress = String.fromCharCode(event.keyCode).toLowerCase();
+//slices the randomly chosen word into it's individuals character's 
+			for (var j = 0; j < wordLength; j++) {
 
-			console.log(userPress);
+				var letter = [wordRandom.slice(j,j + 1)];
 
-			if (userPress == "c" || userPress == "a" ||userPress == "t") {
+				letterPush.push(letter);
+
+				console.log(letterPush);
+
 				
-				for (var i = 0; i < wordLength; i++) {
 
-					var letter = [word.slice(i,i + 1)];
+//As letters are pressed they are pushed and replaced into their appropriate position
+				document.onkeyup = function(event) {
 
-					letterPush.push(letter);
+					var userPress = String.fromCharCode(event.keyCode).toLowerCase();
 
-					console.log(letterPush);
-				}
+					for (var k = 0; k < wordLength; k++) {
 
-			}
+						if (userPress == letterPush[k]) {
+
+							letterPush.push(userPress); 
+
+							console.log("hello"); //console.log test to make sure it is working
+
+							document.getElementById("word").textContent = letterPush[k];
+
+							// letterPush.indexOf(-1);
+
+						}
+
+					}
+
+				}			
 	
-		}
+			}
 
 	}
 
 }
 
-// place number of wins out here//
+// placeholder to track number of wins out here//
+
+	// if (letterPush == wordRandom) {
+	// 	win++;
+	// 	document.getElementById("wins").textContent = win;
+	// }
 
 
 
@@ -67,14 +89,4 @@ document.body.onkeyup = function (e) {
 // console.log(showLetter);
 
 
-// function letterBig(num) {
 
-// 	if (wordRandom) {
-
-// 		if (userPress == wordRandom) {
-// 			console.log(letterBig(num));	
-// 			// console.log(letter[1]);
-// 			// console.log(letter[2]);
-// 		}
-// 	}
-// }
