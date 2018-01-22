@@ -1,7 +1,7 @@
 //global variables go here
 
 
-var word = ["cat","horse","rocket-ship"];
+var word = ["cat","horse","mood"];
 var showSpace = [];
 var letterPush = [];
 // var replace = showLetter[0].replace(showLetter[0],letter[0]);
@@ -12,6 +12,8 @@ var guessList = [];
 var win = 0;
 
 var wordRandom = word[Math.floor(Math.random() * word.length)];
+
+console.log(wordRandom);
 
 
 document.body.onkeyup = function (e) {
@@ -39,28 +41,36 @@ document.body.onkeyup = function (e) {
 
 				letterPush.push(letter);
 
-				console.log(letterPush);
 
-				
+		
 
 //As letters are pressed they are pushed and replaced into their appropriate position
 				document.onkeyup = function(event) {
 
 					var userPress = String.fromCharCode(event.keyCode).toLowerCase();
 
+					var guessList = [];
+
 					for (var k = 0; k < wordLength; k++) {
 
 						if (userPress == letterPush[k]) {
 
-							letterPush.push(userPress); 
+							letterPush.push(userPress);
 
-							console.log("hello"); //console.log test to make sure it is working
+							document.getElementById("word").textContent = letterPush;
 
-							document.getElementById("word").textContent = letterPush[k];
-
-							// letterPush.indexOf(-1);
-
+							letterPush--; 
 						}
+
+						else if (userPress != letterPush[k]) {
+						
+							if (guessList > userGuess)  {
+							guessList.push(userPress);
+
+							document.getElementById("lettersGuessed").textContent = guessList;
+							}
+
+						}						
 
 					}
 
